@@ -8,10 +8,10 @@ from os import getenv
 # //////////////////////
 
 @pytest.fixture(scope="module")
-def client() -> EmailClientAdapter:
+def client_creator() -> EmailClientCreator:
     ct: ClientType = ClientType.GMAIL
     lc: LoginCredentials = LoginCredentials(client_type=ct)
-    return EmailClientAdapter(client_type=ct, \
+    return EmailClientCreator().get_client(client_type=ct, \
         credentials=lc)
     
     
@@ -19,11 +19,10 @@ def client() -> EmailClientAdapter:
 #  METHOD TESTS
 # //////////////////////
 
-def test_emailclientadapter_send(client: EmailClientAdapter):
+def test_emailclientadapter_send(client_creator: EmailClientCreator):
     args: dict = {
         "recipient": getenv("RECIPIENT")
         , "contents": "This is a test email sent via Python"
     }
-
-    client.send(**args)
+    client_creator.send(**args)
     

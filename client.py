@@ -1,65 +1,71 @@
 from credentials import ClientType, LoginCredentials
 from enum import Enum
-from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod, ABCMeta
 from exceptions import ClientConnectionError
 
 import yagmail
 
 
-class BaseClient(ABC):
-    __instance = None
-
-    def __init__(self):
-        self.__instance = None
-
-    @abstractmethod
-    def send():
-        pass
-
-
-class EmailClientAdapter(BaseClient):
+class AbstractEmailClient(ABC):
     """
-    Singleton class for e-mail client
-    from https://en.wikipedia.org/wiki/Singleton_pattern
+    Base class for email client types
     """
-
-    __instance = None
-
-    def __new__(cls, client_type: ClientType, credentials: LoginCredentials):
-        if cls.__instance is None:
-            cls.__instance = cls.__create_client(client_type, credentials)
-        return cls.__instance
+    def __init__(self, **kwargs):
+        self._instance = self._init_client(**kwargs)
 
     @classmethod
-    def __create_client(cls, client_type: ClientType, credentials: LoginCredentials):
-        eca: EmailClientAdapter = None
-        if client_type == ClientType.GMAIL:
-            eca = YagmailClient(credentials)
+    def __subclasshook__(cls, subclass):
+        return (hasattr(subclass, "send") \
+            and hasattr(subclass, "_instance")
+            and callable(subclass.send) or NotImplemented)
 
-        return eca
+    @abstractmethod
+    def _init_client(self):
+        NotImplementedError
 
-    def send(self, **kwargs):
-        self.__instance.send(kwargs)
+    @abstractmethod
+    def send(self, **kwargs) -> None:
+        NotImplementedError
 
 
-class YagmailClient(BaseClient):
+class EmailClientCreator():
     """
-    Adapter for yagmail API
+    Concrete factory for e-mail client
+    """
+    def __init__(self):
+        self._instance = None
+
+    def get_client(self, client_type: ClientType, credentials: LoginCredentials):
+
+        client: AbstractEmailClient = None
+
+        if self._instance is not None:
+            return self._instance
+            
+        if client_type == ClientType.GMAIL:
+            client = YagmailClient(credentials)
+        return client
+
+
+class YagmailClient(AbstractEmailClient):
+    """
+    Abstraction for yagmail API
     """
     def __init__(self, credentials: LoginCredentials):
-        self.__instance = self.__init_yagmail(credentials)
+        super().__init__(credentials=credentials)
     
-    def __init_yagmail(self, credentials: LoginCredentials):
+    def _init_client(self, credentials: LoginCredentials):
         instance = None
         try:
-            instance = yagmail.SMTP(credentials.username, credentials.password)
+            instance = yagmail.SMTP(credentials.username, \
+                credentials.password)
         except:
             raise ClientConnectionError("Connection to Yagmail client failed. Check username, password, and GMail access settings.")
         return instance
 
     def send(self, **kwargs):
         try:
-            print(kwargs)
-            self.__instance.send(to=kwargs["recipient"], contents=kwargs["content"])
+            print(self._instance)
+            self._instance.send(to=kwargs["recipient"], contents=kwargs["contents"])
         except KeyError:
             raise Exception("YagmailClient::send : Recepient and/or content not found")
