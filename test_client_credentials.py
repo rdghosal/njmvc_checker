@@ -21,7 +21,8 @@ def client_creator() -> EmailClientCreator:
 
 def test_emailclientadapter_send(client_creator: EmailClientCreator):
     args: dict = {
-        "recipient": getenv("RECIPIENT")
+        "recipient": getenv("RECIPIENTS").split(",")
+        , "subject": "Test E-mail"
         , "contents": "This is a test email sent via Python"
     }
     client_creator.send(**args)
