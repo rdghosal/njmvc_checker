@@ -1,3 +1,4 @@
+from os import getenv
 from credentials import ClientType, LoginCredentials
 from enum import Enum
 from abc import ABC, abstractmethod, ABCMeta
@@ -20,11 +21,11 @@ class AbstractEmailClient(ABC):
             and callable(subclass.send) or NotImplemented)
 
     @abstractmethod
-    def _init_client(self):
+    def _init_client():
         NotImplementedError
 
     @abstractmethod
-    def send(self, **kwargs) -> None:
+    def send() -> None:
         NotImplementedError
 
 
@@ -66,6 +67,7 @@ class YagmailClient(AbstractEmailClient):
     def send(self, **kwargs):
         try:
             print(self._instance)
-            self._instance.send(to=kwargs["recipient"], contents=kwargs["contents"])
+            self._instance.send(to=kwargs["recipient"]\
+                , subject=kwargs["subject"], contents=kwargs["contents"])
         except KeyError:
             raise Exception("YagmailClient::send : Recepient and/or content not found")
