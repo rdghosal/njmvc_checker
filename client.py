@@ -58,6 +58,7 @@ class YagmailClient(AbstractEmailClient):
     def _init_client(self, credentials: LoginCredentials):
         instance = None
         try:
+            print(credentials.username)
             instance = yagmail.SMTP(credentials.username, \
                 credentials.password)
         except:

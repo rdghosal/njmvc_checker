@@ -3,3 +3,5 @@ local.env
 .vim
 *cache*
 env
+sample*
+*memo*
