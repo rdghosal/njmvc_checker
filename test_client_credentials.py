@@ -1,5 +1,6 @@
 import pytest
-from client import *
+from email_client.client_creator import EmailClientCreator, LoginCredentials
+from email_client.enums import ClientType
 from os import getenv
 
 

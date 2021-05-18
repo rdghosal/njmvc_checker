@@ -1,5 +1,8 @@
 from os import getenv
-from scraper import BeautifulScrapper, ScraperCreator, ScraperType, SeleniumScrapper
+from scraper.scaper_creator import ScraperCreator, ScraperType
+from scraper.beautiful import BeautifulScrapper
+from scraper.selenium import SeleniumScrapper
+
 import pytest
 
 

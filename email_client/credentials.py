@@ -1,14 +1,5 @@
 from os import getenv
-from enum import Enum
-
-
-class CredentialType(Enum):
-    USERNAME = 1
-    PASSWORD = 2
-
-
-class ClientType(Enum):
-    GMAIL = 1
+from .enums import ClientType, CredentialType
 
 
 class LoginCredentials():
