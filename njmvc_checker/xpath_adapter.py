@@ -1,11 +1,12 @@
 
 
-class TemplateAdapter:
+class XPathAdapter:
     """
     Class to format templates based on provided parameters
     """
     @staticmethod
-    def get_formatted_strs(template: str, params: list):
+    def generate_xpaths(template: str, params: list):
+        """Uses list of params to format a provided template"""
         for p in params:
             yield template.format(p)
 

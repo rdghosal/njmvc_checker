@@ -21,8 +21,8 @@ def test_create_static_scraper():
 
 
 def test_scraper_find_element(scraper: SeleniumScrapper):
-    city = "rio grande"
-    xpath = f"//div[@id='locationsDiv']/div[@class='text-capitalize'][./span[text()[contains(.,'Available')]]][./span[text()='{city.title()}']]"
+    city = "toms river"
+    xpath = f"//div[@id='locationsDiv']/div[@class='text-capitalize'][./a[text()[contains(.,'Make Appointment')]]][./span[text()='{city.title()}']]"
     assert scraper.find_element(xpath=xpath, src_path=URL) != None
     
 
@@ -35,7 +35,7 @@ def test_scraper_find_subelement(scraper: SeleniumScrapper, src_path: str):
 
 def test_scraper_found_element(scraper: SeleniumScrapper):
     city = "rio grande"
-    xpath = f"//div[@id='locationsDiv']/div[@class='text-capitalize'][./span[text()[contains(.,'Available')]]][./span[text()='{city.title()}']]"
+    xpath = f"//div[@id='locationsDiv']/div[@class='text-capitalize'][./a[text()[contains(.,'Make Appointment')]]][./span[text()='{city.title()}']]"
     assert scraper.found_element(xpath=xpath, src_path=URL)
 
 
@@ -43,4 +43,4 @@ def test_scraper_found_element(scraper: SeleniumScrapper):
 def test_scraper_found_subelement(scraper: SeleniumScrapper, src_path: str):
     xpath = f"//div[@id='locationsDiv']/div[@class='text-capitalize']" 
     div = scraper.find_element(xpath=xpath, src_path=URL)
-    assert scraper.found_element(xpath="//span[text()[contains(.,'Available')]]", element=div)
+    assert scraper.found_element(xpath="//a[text()[contains(.,'Make Appointment')]]", element=div)
