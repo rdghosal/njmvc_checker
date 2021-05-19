@@ -20,9 +20,9 @@ class NjMvcUrlMapper(UrlMapper):
     }
 
     @staticmethod
-    def get_url(self, service_name: str) -> str:
-        if service_name not in self.__service_names.keys():
+    def get_url(service_name: str) -> str:
+        if service_name not in NjMvcUrlMapper.__service_names.keys():
             return print("Invalid service name inputed.")
-        page_num = self.__service_names.get(service_name)
-        return self.__base_url.format(page_num)    
+        page_num = NjMvcUrlMapper.__service_names.get(service_name)
+        return NjMvcUrlMapper.__base_url.format(page_num)    
 

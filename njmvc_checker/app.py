@@ -2,7 +2,6 @@ from os import getenv
 from argparse import ArgumentParser
 from email_client.yagmail import YagmailClient
 from scraper.selenium import SeleniumScrapper
-from scraper import scaper_creator
 from scraper.scaper_creator import ScraperCreator, ScraperType
 from email_client.credentials import LoginCredentials
 from email_client.enums import ClientType

@@ -16,6 +16,9 @@ class SeleniumScrapper(WebScraper):
         chrome_options.add_argument("--headless")
         super().__init__(webdriver.Chrome(options=chrome_options))
 
+    def __del__(self):
+        self.close()
+
     def find_element(self, xpath: str, src_path="", element: WebElement=None) -> WebElement:
 
         target_element: WebElement = None
