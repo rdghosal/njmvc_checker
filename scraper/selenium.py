@@ -1,3 +1,4 @@
+from time import sleep
 from scraper import WebScraper
 from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
@@ -36,23 +37,11 @@ class SeleniumScrapper(WebScraper):
         except (InvalidSelectorException, NoSuchAttributeException) as e:
             print("Invalid XPath: Specified XPath was invalid. Please check XPath and try again.")
         except NoSuchElementException:
-            print("Invalid XPath: Specified XPath failed to locate element on webpage.")
-
+            print("Element Not Found: Specified XPath failed to locate element on webpage.")
         return target_element
 
     def found_element(self, xpath: str, src_path: str="", element: WebElement=None) -> bool:
-        found = False
-        use_element = True if element else False
-
-        if use_element:
-            # Navigate to designated url
-            if self.find_element(xpath=xpath, src_path=src_path, element=element) != None:
-                found = True
-        else:
-            # Search in specified web element
-            if self.find_element(xpath=xpath) != None:
-                found = True
-
+        found = self.find_element(xpath=xpath, src_path=src_path, element=element) != None
         return found
 
     def close(self) -> None:

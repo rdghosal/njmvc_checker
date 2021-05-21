@@ -1,5 +1,4 @@
-#!usr/bin/python3.9
-from .app import *
+from app import App
 
 
 if __name__ == "__main__":
