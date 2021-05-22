@@ -1,5 +1,5 @@
 import pytest
-from njmvc_checker.app import App, NjMvcUrlMapper
+from app import App, NjMvcUrlMapper
 
 
 def test_get_email_msg(cities=["rio grande", "RAHWAY", "treNTon", "south PlainfielD", "123456"]):

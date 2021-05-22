@@ -15,6 +15,7 @@ class SeleniumScrapper(WebScraper):
         # Reference: https://stackoverflow.com/a/53657649
         chrome_options = Options()
         chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--no-sandbox")
         super().__init__(webdriver.Chrome(options=chrome_options))
 
     def __del__(self):
