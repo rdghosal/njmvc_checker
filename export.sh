@@ -1,13 +1,13 @@
 #!/usr/bin/bash
 
 # Delete existing version
-if [ -d ./njmvc_checker ]; then
-	echo "Removing current version of ./njmvc_checker"
-	rm -r njmvc_checker
+if [ -d ./app ]; then
+	echo "Removing current version of ./njmvc_app"
+	rm -r ./app
 fi
 
 # Copy target files and directories 
-mkdir ./njmvc_checker
+mkdir ./app && mkdir ./app/njmvc_checker
 cp ./app.py \
 	./njmvc_checker.py \
    	./njmvc_cron.txt \
@@ -15,18 +15,18 @@ cp ./app.py \
 	./entrypoint.sh \
 	./init.sh \
 	./local.env \
-	./njmvc_checker
+	./app
 
 cp -r ./scraper \
 	./email_client \
 	./utils \
-	./njmvc_checker
+	./app/njmvc_checker
 
 # Remove pycache
-rm -r ./njmvc_checker/*/*cache*
-rm -r ./njmvc_checker/*/.*cache*
+rm -r ./app/njmvc_checker/*/*cache*
+rm -r ./app/njmvc_checker/*/.*cache*
 
 # Zip folder
-sudo zip -r njmvc_checker.zip njmvc_checker
-echo "Completed zipping application as njmvc_checker.zip"
+sudo zip -r ./njmvc_app.zip ./app
+echo "Completed zipping application as njmvc_app.zip"
 

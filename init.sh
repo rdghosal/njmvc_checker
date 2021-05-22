@@ -30,7 +30,6 @@ rm chromedriver_linux64.zip
 echo "========== Preparing current directory ==========" 
 chmod +x ./entrypoint.sh
 
-unzip njmvc_checker.zip &&
-rm njmvc_checker.zip
 mv njmvc_checker/* .
 rmdir njmvc_checker
+find /app -name "*.zip" -delete
