@@ -7,6 +7,6 @@ COPY ./entrypoint.sh .
 COPY ./njmvc_checker.zip .
 RUN ["chmod", "u+x", "./init.sh"]
 RUN ./init.sh
-RUN ["chmod", "u+x", "./entrypoint.sh"]
-RUN ./entrypoint.sh
-CMD ["tail", "-f", "/dev/null"]
+# RUN ["chmod", "u+x", "./entrypoint.sh"]
+# RUN ./entrypoint.sh
+# CMD ["tail", "-f", "/dev/null"]

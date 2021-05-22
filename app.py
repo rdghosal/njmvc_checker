@@ -29,12 +29,13 @@ class App:
             count += 1
         return found_cities
 
-    def __get_email_msg(self, found_cities: list, service_name: str) -> str:
+    def __get_email_msg(self, found_cities: list, service_name: str, url: str) -> str:
         msg = ""
         if len(found_cities) > 0:
             msg = f"Found {service_name} appointments available in the following cities:"
             bullet_pts = "\n\t- ".join(found_cities)
             msg = f"{msg}\n\t- {bullet_pts}"
+            msg += f"\n\n{url}"
         return msg
 
     def __init_argparser(self) -> ArgumentParser:
@@ -70,7 +71,7 @@ class App:
 
         print(f"[{datetime.now()}] Scrapping {url} for open appointments...")
         found_cities = App.__get_open_cities(self=App, url=url, cities=cities)
-        msg = App.__get_email_msg(self=App, found_cities=found_cities, service_name=service_name)
+        msg = App.__get_email_msg(self=App, found_cities=found_cities, service_name=service_name, url=url)
 
         if msg:
             print(f"[{datetime.now()}] Found {len(found_cities)} appointments. Sending email(s)...")
@@ -80,5 +81,5 @@ class App:
         else:
            print(f"[{datetime.now()}] No appointments found.") 
 
-        print(f"[{datetime.now()}] Completed scrapping of {url}.")
+        print(f"[{datetime.now()}] Completed scraping of {url}.")
 
