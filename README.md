@@ -4,7 +4,7 @@ Date: 2021-05-23
 Author: Ghosal, Rahul D.
 ```
 ## I. Purpose
-`njmvc_watch` was developed to automate the process of checking the the New Jersey Motor Vehicles Commission's (NJ MVC) appointment registration portal for availability in designated cities.
+`njmvc_checker` was developed to automate the process of checking the the New Jersey Motor Vehicles Commission's (NJ MVC) appointment registration portal for availability in designated cities.
 
 ## II. Design
 This package achieves its purpose by:
