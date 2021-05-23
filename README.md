@@ -49,3 +49,10 @@ crontab njmvc_cron.txt
 ## IV. Example Usage
 Currently, the author runs this script every hour, at the 30-minute mark on an Ubuntu VPS via cron. See `njmvc_cron.txt` for sample. Execution also tested successfully on Docker (Ubuntu image), so package may be deployed as a container as well (see `test.Dockerfile` for informal example of build).
 
+## V. Implementation
+1. Python 3.8
+2. Unit testing: [pytest](https://github.com/pytest-dev/pytest)
+2. GMail SMTP Client:
+[yagmail](https://github.com/kootenpv/yagmail)
+3. Web scraper library: [Selenium](https://github.com/SeleniumHQ/selenium/tree/trunk/py)
+>*NOTE*: `email_client` module also includes a [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) wrapper. Unfortunately, however, this scraper fails to read dynamically-generated content, as needed in the case of the NJ MVC portal.
